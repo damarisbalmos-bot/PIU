@@ -1,6 +1,4 @@
-﻿
-
-namespace LibrarieModele
+﻿namespace LibrarieModele
 {
     public class Baterie
     {

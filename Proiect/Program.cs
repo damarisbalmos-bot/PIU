@@ -39,26 +39,7 @@ namespace InventarBaterii
             } while (optiune != 4);
         }
 
-        static void Adauga()
-        {
-            Console.Write("Numele bateriei: ");
-            string nume = Console.ReadLine();
-            Console.Write("Tipul bateriei: ");
-            string tip = Console.ReadLine();
-            Console.Write("Data de expirare: ");
-            DateTime dataExpirare;
-            while (!DateTime.TryParse(Console.ReadLine(), out dataExpirare)){
-                Console.Write("Data invalida! Faceti din nou:  ");
-            }
-            Console.Write("Cantitate: ");
-            int cantitate;
-            while (!int.TryParse(Console.ReadLine(), out cantitate)) {
-                Console.Write("Cantitate invalida! Introduceti din nou: ");
-            }
-            baterii.Add(new Baterie(nume, tip, dataExpirare, cantitate));
-            Console.WriteLine("Baterie adaugata!");
-            Console.ReadKey();
-        }
+        static void Adauga() { }
         static void VizualizeazaInventar() { }
         static void Sterge() { }
 
