@@ -1,5 +1,6 @@
 ﻿using LibrarieModele;
 
+
 namespace NivelStocareDate
 {
     public class AdministrareBateriiMemorie : IStocareData
@@ -18,15 +19,22 @@ namespace NivelStocareDate
         {
             return baterii.Where(b => b.Tip == tip).ToList();
         }
-        public Baterie GetBaterie(string nume)
+        public Baterie? GetBaterie(string nume)
         {
             return baterii.FirstOrDefault(b => b.Nume == nume);
         }
         public bool StergeBaterie(string nume)
         {
-            Baterie gasita = baterii.FirstOrDefault(b => b.Nume == nume);
+            Baterie? gasita = baterii.FirstOrDefault(b => b.Nume == nume);
             if (gasita == null) return false;
             baterii.Remove(gasita);
+            return true;
+        }
+        public bool UpdateBaterie(Baterie baterieActualizata)
+        {
+            int index = baterii.FindIndex(b => b.Nume == baterieActualizata.Nume);
+            if (index == -1) return false;
+            baterii[index] = baterieActualizata;
             return true;
         }
     }

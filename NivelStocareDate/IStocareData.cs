@@ -7,7 +7,8 @@ namespace NivelStocareDate
         void AddBaterie(Baterie baterie);
         List<Baterie> GetBaterii();
         List<Baterie> GetBaterii(TipBaterie tip);
-        Baterie GetBaterie(string nume);
+        Baterie? GetBaterie(string nume);
         bool StergeBaterie(string nume);
+        bool UpdateBaterie(Baterie baterieActualizata);
     }
 }
