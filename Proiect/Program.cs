@@ -1,9 +1,11 @@
 ﻿using LibrarieModele;
+using NivelStocareDate;
+
 namespace InventarBaterii
 {
     class Program
     {
-        static List<Baterie> baterii = new List<Baterie>();
+        static IStocareData admin = new AdministrareBateriiMemorie();
         static void Main(string[] args)
         {
             int optiune;
@@ -47,8 +49,8 @@ namespace InventarBaterii
         {
             Console.Write("Numele bateriei: ");
             string nume = Console.ReadLine();
-            Console.Write("Tipul bateriei: ");
-            string tip = Console.ReadLine();
+            Console.WriteLine("Tipul bateriei (0=Alcalina, 1=Litiu, 2=NichelMetal, 3=Plumb): ");
+            TipBaterie tip = (TipBaterie)int.Parse(Console.ReadLine());
             Console.Write("Data de expirare: ");
             DateTime dataExpirare;
             while (!DateTime.TryParse(Console.ReadLine(), out dataExpirare)){
@@ -59,6 +61,9 @@ namespace InventarBaterii
             while (!int.TryParse(Console.ReadLine(), out cantitate)) {
                 Console.Write("Cantitate invalida! Introduceti din nou: ");
             }
+            Console.WriteLine("Optiuni (0=Niciuna, 1=Reincarcabila, 2=Impermeabila, 4=TemperaturaScazuta, 8=TemperaturaRidicata): ");
+            OptiuniBaterie optiuni = (OptiuniBaterie)int.Parse(Console.ReadLine());
+
             Console.Write("Nume producator: ");
             string numeProd = Console.ReadLine();
             Console.Write("Adresa producator: ");
@@ -67,38 +72,29 @@ namespace InventarBaterii
             string telefonProd = Console.ReadLine();
 
             Producator producator = new Producator(numeProd, adresaProd, telefonProd);
-            baterii.Add(new Baterie(nume, tip, dataExpirare, cantitate, producator));
+            admin.AddBaterie(new Baterie(nume, tip, dataExpirare, cantitate, producator, optiuni));
             Console.WriteLine("Baterie adaugata!");
             Console.ReadKey();
         }
         static void VizualizeazaInventar()
         {
+            List<Baterie> baterii = admin.GetBaterii();
             if (baterii.Count == 0)
-            {
                 Console.WriteLine("Nu exista baterii in inventar.");
-            }
             else
             {
                 Console.WriteLine("Inventar baterii:");
                 foreach (Baterie b in baterii)
-                {
                     Console.WriteLine(b.ToString());
-                }
             }
             Console.ReadKey();
         }
         static void Cauta()
         {
             Console.Write("Introduceti tipul bateriei cautat: ");
-            string tip = Console.ReadLine();
+            TipBaterie tip = (TipBaterie)int.Parse(Console.ReadLine());
 
-            List<Baterie> rezultate = new List<Baterie>();
-            foreach (Baterie b in baterii)
-            {
-                if (b.Tip == tip)
-                    rezultate.Add(b);
-            }
-
+            List<Baterie> rezultate = admin.GetBaterii(tip);
             if (rezultate.Count > 0)
             {
                 Console.WriteLine($"Au fost gasite {rezultate.Count} baterii:");
@@ -106,34 +102,15 @@ namespace InventarBaterii
                     Console.WriteLine(b.ToString());
             }
             else
-            {
-                Console.WriteLine("Nu a fost gasita nicio baterie cu tipul specificat.");
-            }
+                Console.WriteLine("Nu a fost gasita nicio baterie.");
             Console.ReadKey();
         }
         static void Sterge()
         {
             Console.Write("Introduceti numele bateriei de sters: ");
             string nume = Console.ReadLine();
-
-            Baterie gasita = null;
-            foreach (Baterie b in baterii)
-            {
-                if (b.Nume == nume)
-                {
-                    gasita = b;
-                    break;
-                }
-            }
-            if (gasita != null)
-            {
-                baterii.Remove(gasita);
-                Console.WriteLine("Baterie stearsa cu succes!");
-            }
-            else
-            {
-                Console.WriteLine("Bateria nu a fost gasita.");
-            }
+            bool ok = admin.StergeBaterie(nume);
+            Console.WriteLine(ok ? "Baterie stearsa cu succes!" : "Bateria nu a fost gasita.");
             Console.ReadKey();
         }
 
