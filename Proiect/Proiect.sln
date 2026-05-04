@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibrarieModele", "..\Librar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NivelStocareDate", "..\NivelStocareDate\NivelStocareDate.csproj", "{44777EE8-445F-A487-58A9-82BC07D1729A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Baterii", "..\Baterii\Baterii.csproj", "{6425FEF2-85E4-432A-9EF0-471B2784A1E2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{44777EE8-445F-A487-58A9-82BC07D1729A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44777EE8-445F-A487-58A9-82BC07D1729A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44777EE8-445F-A487-58A9-82BC07D1729A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6425FEF2-85E4-432A-9EF0-471B2784A1E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6425FEF2-85E4-432A-9EF0-471B2784A1E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6425FEF2-85E4-432A-9EF0-471B2784A1E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6425FEF2-85E4-432A-9EF0-471B2784A1E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
