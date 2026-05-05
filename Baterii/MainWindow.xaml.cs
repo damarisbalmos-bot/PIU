@@ -192,7 +192,7 @@ namespace Baterii
             pnlAdauga.Visibility = Visibility.Collapsed;
             pnlModifica.Visibility = Visibility.Collapsed;
             pnlCauta.Visibility = Visibility.Visible;
-            //pnlVizualizeaza.Visibility = Visibility.Collapsed;
+            pnlVizualizeaza.Visibility = Visibility.Collapsed;
             lvRezultate.ItemsSource = null;
             txtNrRezultate.Text = "";
         }
@@ -214,6 +214,94 @@ namespace Baterii
             }
 
             txtStatus.Text = $"Cautare finalizata: {rezultate.Count} rezultate.";
+        }
+        private void mnuVizualizeaza_Click(object sender, RoutedEventArgs e)
+        {
+            pnlAdauga.Visibility = Visibility.Collapsed;
+            pnlModifica.Visibility = Visibility.Collapsed;
+            pnlCauta.Visibility = Visibility.Collapsed;
+            pnlVizualizeaza.Visibility = Visibility.Visible;
+
+            IncarcaInventar();
+        }
+        private void IncarcaInventar()
+        {
+            List<Baterie> toate = admin.GetBaterii();
+
+            if (toate.Count == 0)
+            {
+                txtNrTotal.Text = "Nu exista baterii in inventar.";
+                lvInventar.ItemsSource = null;
+            }
+            else
+            {
+                txtNrTotal.Text = $"Total baterii: {toate.Count}";
+                lvInventar.ItemsSource = toate;
+            }
+
+            txtStatus.Text = $"Inventar incarcat: {toate.Count} baterii.";
+        }
+        private void btnRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            IncarcaInventar();
+        }
+        private void mnuIesire_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+        private void mnuSterge_Click(object sender, RoutedEventArgs e)
+        {
+            pnlAdauga.Visibility = Visibility.Collapsed;
+            pnlModifica.Visibility = Visibility.Collapsed;
+            pnlCauta.Visibility = Visibility.Collapsed;
+            pnlVizualizeaza.Visibility = Visibility.Collapsed;
+            pnlSterge.Visibility = Visibility.Visible;
+            cmbSterge.ItemsSource = admin.GetBaterii();
+            borderDetalii.Visibility = Visibility.Collapsed;
+            txtConfirmare.Text = "";
+        }
+        private void cmbSterge_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cmbSterge.SelectedItem is not Baterie b)
+            {
+                borderDetalii.Visibility = Visibility.Collapsed;
+                return;
+            }
+            txtDetNume.Text = b.Nume;
+            txtDetTip.Text = b.Tip.ToString();
+            txtDetCantitate.Text = b.Cantitate.ToString();
+            txtDetData.Text = b.DataExpirare.ToString("dd/MM/yyyy");
+            txtDetProducator.Text = b.Producator.Nume;
+
+            borderDetalii.Visibility = Visibility.Visible;
+            txtConfirmare.Text = $"Esti sigur ca vrei sa stergi bateria '{b.Nume}'?";
+        }
+        private void btnSterge_Click(object sender, RoutedEventArgs e)
+        {
+            if (cmbSterge.SelectedItem is not Baterie b)
+            {
+                txtStatus.Text = "Selecteaza o baterie!";
+                return;
+            }
+
+            bool ok = admin.StergeBaterie(b.Nume);
+
+            if (ok)
+            {
+                txtStatus.Text = $"Bateria '{b.Nume}' a fost stearsa!";
+                cmbSterge.ItemsSource = admin.GetBaterii();
+                borderDetalii.Visibility = Visibility.Collapsed;
+                txtConfirmare.Text = "";
+            }
+            else
+            {
+                txtStatus.Text = "Eroare la stergere!";
+            }
+        }
+        private void btnAnuleazaSterge_Click(object sender, RoutedEventArgs e)
+        {
+            pnlSterge.Visibility = Visibility.Collapsed;
+            pnlAdauga.Visibility = Visibility.Visible;
         }
     }
 }

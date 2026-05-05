@@ -18,14 +18,15 @@
             <MenuItem Header="Baterii">
                 <MenuItem Header="Adauga Baterie"  x:Name="mnuAdauga" Click="mnuAdauga_Click"/>
                 <MenuItem Header="Modifica Baterie" x:Name="mnuModifica" Click="mnuModifica_Click"/>
+                <MenuItem Header="Sterge Baterie"  x:Name="mnuSterge"  Click="mnuSterge_Click"/>
                 <Separator/>
-                <MenuItem Header="Iesire"           x:Name="mnuIesire"/>
+                <MenuItem Header="Iesire"           x:Name="mnuIesire" Click="mnuIesire_Click"/>
             </MenuItem>
             <MenuItem Header="Cautare">
                 <MenuItem Header="Cauta dupa Tip"  x:Name="mnuCauta" Click="mnuCauta_Click"/>
             </MenuItem>
             <MenuItem Header="Inventar">
-                <MenuItem Header="Vizualizeaza tot" x:Name="mnuVizualizeaza"/>
+                <MenuItem Header="Vizualizeaza tot" x:Name="mnuVizualizeaza" Click="mnuVizualizeaza_Click"/>
             </MenuItem>
         </Menu>
         <ScrollViewer Grid.Row="1">
@@ -202,6 +203,102 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
+                </StackPanel>
+                <StackPanel x:Name="pnlVizualizeaza" Visibility="Collapsed">
+
+                    <TextBlock Text="Inventar Complet" FontSize="20" FontWeight="Bold" Margin="0,0,0,15"/>
+                    <TextBlock x:Name="txtNrTotal" Margin="0,0,0,10" Foreground="Gray"/>
+
+                    <ListView x:Name="lvInventar" Height="400">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Nume"          Width="150"
+                                                DisplayMemberBinding="{Binding Nume}"/>
+                                <GridViewColumn Header="Tip"           Width="100"
+                                                DisplayMemberBinding="{Binding Tip}"/>
+                                <GridViewColumn Header="Cantitate"     Width="80"
+                                                DisplayMemberBinding="{Binding Cantitate}"/>
+                                <GridViewColumn Header="Data Expirare" Width="120"
+                                                DisplayMemberBinding="{Binding DataExpirare, StringFormat=dd/MM/yyyy}"/>
+                                <GridViewColumn Header="Optiuni"       Width="150"
+                                                DisplayMemberBinding="{Binding Optiuni}"/>
+                                <GridViewColumn Header="Producator"    Width="150"
+                                                DisplayMemberBinding="{Binding Producator.Nume}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Button Content="Refresh" 
+                            Width="100" 
+                            Height="35"
+                            Margin="0,10,0,0" 
+                            HorizontalAlignment="Left"
+                            Click="btnRefresh_Click"/>
+
+                </StackPanel>
+                <StackPanel x:Name="pnlSterge" Visibility="Collapsed">
+
+                    <TextBlock Text="Sterge Baterie" FontSize="20" FontWeight="Bold" Margin="0,0,0,15"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                        <Label Content="Selecteaza bateria:" Width="150"/>
+                        <ComboBox x:Name="cmbSterge" Width="300"
+                                    DisplayMemberPath="Nume"
+                                    SelectionChanged="cmbSterge_SelectionChanged"/>
+                    </StackPanel>
+                    <Border x:Name="borderDetalii" Visibility="Collapsed"
+                            BorderBrush="Gray" 
+                            BorderThickness="1"
+                            CornerRadius="5" 
+                            Padding="15" 
+                            Margin="0,0,0,15">
+                        <StackPanel>
+                            <TextBlock Text="Detalii baterie selectata:" 
+                       FontWeight="Bold" Margin="0,0,0,10"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="30"/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Nume:"          FontWeight="SemiBold"/>
+                                <TextBlock Grid.Row="0" Grid.Column="1" x:Name="txtDetNume"/>
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="Tip:"           FontWeight="SemiBold"/>
+                                <TextBlock Grid.Row="1" Grid.Column="1" x:Name="txtDetTip"/>
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="Cantitate:"     FontWeight="SemiBold"/>
+                                <TextBlock Grid.Row="2" Grid.Column="1" x:Name="txtDetCantitate"/>
+
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="Data Expirare:" FontWeight="SemiBold"/>
+                                <TextBlock Grid.Row="3" Grid.Column="1" x:Name="txtDetData"/>
+
+                                <TextBlock Grid.Row="4" Grid.Column="0" Text="Producator:"    FontWeight="SemiBold"/>
+                                <TextBlock Grid.Row="4" Grid.Column="1" x:Name="txtDetProducator"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                    <TextBlock x:Name="txtConfirmare" Foreground="OrangeRed"
+                               FontWeight="Bold"  
+                               Margin="0,0,0,15"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="btnSterge" Content="Sterge" 
+                                Width="100" 
+                                Height="35" 
+                                Margin="0,0,10,0"
+                                Background="Red" 
+                                Foreground="White"
+                                Click="btnSterge_Click"/>
+                        <Button x:Name="btnAnuleazaSterge" Content="Anuleaza" 
+                                Width="100" Height="35"
+                                Click="btnAnuleazaSterge_Click"/>
+                    </StackPanel>
+
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>
