@@ -1,7 +1,6 @@
-﻿using NivelStocareDate;
-using System.Configuration;
+﻿using System.Configuration;
 
-namespace InventarBaterii
+namespace NivelStocareDate
 {
     public static class StocareFactory
     {
