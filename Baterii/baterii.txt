@@ -1,5 +1,3 @@
-A!!!A;Litiu;2026-05-01;4;6;sergiu;;
-ddd;Litiu;2026-05-09;3;4;fff;;
-aaaa;Plumb;2025-05-22;1;1;dama;;
-dft;Alcalina;2028-05-15;1;2;dami;;
+aaaa;Plumb;2025-05-22;1;1;damaris;;
+dft;Alcalina;2028-05-15;1;2;dam;;
 ftp;NichelMetal;2026-05-08;5;2;sami;;

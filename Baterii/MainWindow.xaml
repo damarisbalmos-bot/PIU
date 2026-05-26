@@ -12,7 +12,9 @@
     
     
     <Window.Resources>
-
+        
+        <local:EnumToBooleanConverter x:Key="EnumToConverter"/>
+        <local:EnumFlagsToBooleanConverter x:Key="EnumFlagsToConverter"/>
         <Style TargetType="Label">
             <Setter Property="Foreground" Value="#2A1500"/>
             <Setter Property="FontSize" Value="13"/>
@@ -237,10 +239,10 @@
                     </StackPanel>
                 </Border>
             </StackPanel>
-            
-            
-            <StackPanel x:Name="pnlModifica" Visibility="Collapsed">
-                
+
+
+            <StackPanel x:Name="pnlModifica" Visibility="Collapsed" DataContext="{Binding SelectedItem, ElementName=cmbBaterii}">
+
                 <Border Background="#EDE0D0" BorderBrush="#C49A5A" BorderThickness="1.5" CornerRadius="8" Padding="24">
                     <StackPanel>
                         <TextBlock Text="Modifica Baterie" FontSize="20" FontWeight="SemiBold" Foreground="#3E2000" Margin="0,0,0,10"/>
@@ -253,8 +255,9 @@
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="0" Content="Selecteaza bateria:"/>
                             <ComboBox x:Name="cmbBaterii" Grid.Column="1" 
-                                            ItemsSource="{Binding ColectieBaterii}" DisplayMemberPath="Nume"
-                                            SelectionChanged="cmbBaterii_SelectionChanged"/>
+                                        ItemsSource="{Binding DataContext.ColectieBaterii, RelativeSource={RelativeSource AncestorType=Window}}" 
+                                        DisplayMemberPath="Nume"
+                                        SelectionChanged="cmbBaterii_SelectionChanged"/>   
                         </Grid>
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -270,12 +273,12 @@
 
                             <Label  Grid.Row="0" Grid.Column="0" Content="Cantitate:"/>
                             <TextBox x:Name="txtModCantitate" Grid.Row="0" Grid.Column="1" 
-                                            Text="{Binding Cantitate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    Text="{Binding Cantitate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
                             <TextBlock x:Name="errModCantitate" Grid.Row="0" Grid.Column="2" Foreground="#8B2500" FontSize="12" Margin="10,0,0,0"/>
 
                             <Label  Grid.Row="1" Grid.Column="0" Content="Data expirare:"/>
                             <DatePicker x:Name="dpModData" Grid.Row="1" Grid.Column="1" 
-                                                SelectedDate="{Binding DataExpirare, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                         SelectedDate="{Binding DataExpirare, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
                             <TextBlock x:Name="errModData" Grid.Row="1" Grid.Column="2" Foreground="#8B2500" FontSize="12" Margin="10,0,0,0"/>
 
                             <Label  Grid.Row="2" Grid.Column="0" Content="Producator:"/>
@@ -287,20 +290,28 @@
                         <TextBlock Text="Tip baterie:" FontWeight="SemiBold" Foreground="#3E2000" Margin="0,14,0,6"/>
                         <Border Background="#FAF6F0" BorderBrush="#8B6343" BorderThickness="1.5" CornerRadius="4" Padding="12,8">
                             <StackPanel Orientation="Horizontal">
-                                <RadioButton x:Name="rbModAlcalina" Content="Alcalina"/>
-                                <RadioButton x:Name="rbModLitiu" Content="Litiu"/>
-                                <RadioButton x:Name="rbModNichelMetal" Content="Nichel-Metal"/>
-                                <RadioButton x:Name="rbModPlumb" Content="Plumb"/>
+                                <RadioButton x:Name="rbModAlcalina" Content="Alcalina" 
+                                                    IsChecked="{Binding Tip, Converter={StaticResource EnumToConverter}, ConverterParameter=Alcalina, Mode=TwoWay}"/>
+                                <RadioButton x:Name="rbModLitiu" Content="Litiu" 
+                                                    IsChecked="{Binding Tip, Converter={StaticResource EnumToConverter}, ConverterParameter=Litiu, Mode=TwoWay}"/>
+                                <RadioButton x:Name="rbModNichelMetal" Content="Nichel-Metal" 
+                                                    IsChecked="{Binding Tip, Converter={StaticResource EnumToConverter}, ConverterParameter=NichelMetal, Mode=TwoWay}"/>
+                                <RadioButton x:Name="rbModPlumb" Content="Plumb" 
+                                                    IsChecked="{Binding Tip, Converter={StaticResource EnumToConverter}, ConverterParameter=Plumb, Mode=TwoWay}"/>
                             </StackPanel>
                         </Border>
 
                         <TextBlock Text="Optiuni:" FontWeight="SemiBold" Foreground="#3E2000" Margin="0,14,0,6"/>
                         <Border Background="#FAF6F0" BorderBrush="#8B6343" BorderThickness="1.5" CornerRadius="4" Padding="12,10">
                             <WrapPanel>
-                                <CheckBox x:Name="chkModReincarcabila" Content="Reincarcabila"/>
-                                <CheckBox x:Name="chkModImpermeabila" Content="Impermeabila"/>
-                                <CheckBox x:Name="chkModTempScazuta" Content="Temperatura Scazuta"/>
-                                <CheckBox x:Name="chkModTempRidicata" Content="Temperatura Ridicata"/>
+                                <CheckBox x:Name="chkModReincarcabila" Content="Reincarcabila"
+                                                 IsChecked="{Binding Optiuni, Converter={StaticResource EnumFlagsToConverter}, ConverterParameter=Reincarcabila, Mode=TwoWay}"/>
+                                <CheckBox x:Name="chkModImpermeabila" Content="Impermeabila"
+                                                 IsChecked="{Binding Optiuni, Converter={StaticResource EnumFlagsToConverter}, ConverterParameter=Impermeabila, Mode=TwoWay}"/>
+                                <CheckBox x:Name="chkModTempScazuta" Content="Temperatura Scazuta"
+                                                 IsChecked="{Binding Optiuni, Converter={StaticResource EnumFlagsToConverter}, ConverterParameter=TemperaturaScazuta, Mode=TwoWay}"/>
+                                <CheckBox x:Name="chkModTempRidicata" Content="Temperatura Ridicata"
+                                                 IsChecked="{Binding Optiuni, Converter={StaticResource EnumFlagsToConverter}, ConverterParameter=TemperaturaRidicata, Mode=TwoWay}"/>
                             </WrapPanel>
                         </Border>
 
@@ -385,8 +396,9 @@
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="0" Content="Selecteaza bateria:"/>
                             <ComboBox x:Name="cmbSterge" Grid.Column="1" 
-                                             ItemsSource="{Binding ColectieBaterii}" DisplayMemberPath="Nume"
-                                             SelectionChanged="cmbSterge_SelectionChanged"/>
+                                          ItemsSource="{Binding DataContext.ColectieBaterii, RelativeSource={RelativeSource AncestorType=Window}}" 
+                                          DisplayMemberPath="Nume"
+                                          SelectionChanged="cmbSterge_SelectionChanged"/>
                         </Grid>
 
                         <Border x:Name="borderDetalii" Visibility="Collapsed"

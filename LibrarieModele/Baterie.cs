@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 namespace LibrarieModele
 {
@@ -18,7 +19,7 @@ namespace LibrarieModele
         TemperaturaScazuta = 4,
         TemperaturaRidicata = 8
     }
-    public class Baterie: INotifyPropertyChanged
+    public class Baterie : INotifyPropertyChanged, IDataErrorInfo
     {
         private const char SEPARATOR_PRINCIPAL = ';';
         private const char SEPARATOR_PRODUCATOR = '|';
@@ -68,6 +69,45 @@ namespace LibrarieModele
                 }
             }
         }
+        public string Error => null;
+
+        public string this[string columnName]
+        {
+            get
+            {
+                string result = null;
+
+                switch (columnName)
+                {
+                    case nameof(Nume):
+                        if (string.IsNullOrWhiteSpace(Nume))
+                        {
+                            result = "Numele bateriei este obligatoriu!";
+                        }
+                        else if (Nume.Length > 15)
+                        {
+                            result = "Numele nu poate depăși 15 caractere!";
+                        }
+                        break;
+
+                    case nameof(Cantitate):
+                        if (Cantitate < 1)
+                        {
+                            result = "Cantitatea trebuie să fie de minim 1!";
+                        }
+                        break;
+
+                    case nameof(DataExpirare):
+                        if (DataExpirare == default || DataExpirare < DateTime.Today)
+                        {
+                            result = "Data expirării trebuie să fie în viitor!";
+                        }
+                        break;
+                }
+
+                return result;
+            }
+        }
         public Baterie(string nume, TipBaterie tip, DateTime dataExpirare, int cantitate, Producator producator, OptiuniBaterie optiuni)
         {
             Nume = nume;
@@ -108,12 +148,6 @@ namespace LibrarieModele
         public override string ToString()
         {
             return $"{Nume} -{Tip} -Expirare: {DataExpirare.ToShortDateString()} -Cantitate: {Cantitate} -Optiuni:{Optiuni} -Producator: {Producator.Info()}";
-        }
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

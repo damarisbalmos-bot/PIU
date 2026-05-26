@@ -112,7 +112,7 @@ namespace Baterii
             ExecutaReset();
         }
         private void ExecutaReset()
-        { 
+        {
             txtNume.Text = "";
             txtCantitate.Text = "";
             txtProducator.Text = "";
@@ -127,22 +127,30 @@ namespace Baterii
         }
         private void mnuAdauga_Click(object sender, RoutedEventArgs e)
         {
-            AscundeToatePanourile(); 
+            AscundeToatePanourile();
             pnlAdauga.Visibility = Visibility.Visible;
-            
+
 
         }
         private void mnuModifica_Click(object sender, RoutedEventArgs e)
         {
-            AscundeToatePanourile(); 
-            pnlModifica.Visibility = Visibility.Visible; 
-            
-            cmbBaterii.DisplayMemberPath = "Nume";
+            AscundeToatePanourile();
+            ColectieBaterii.Clear();
+            var bateriiDinFisier = admin.GetBaterii();
+
+            if (bateriiDinFisier != null)
+            {
+                foreach (var b in bateriiDinFisier)
+                {
+                    ColectieBaterii.Add(b);
+                }
+            }
+            pnlModifica.Visibility = Visibility.Visible;
         }
         private void cmbBaterii_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (cmbBaterii.SelectedItem is not Baterie b) return;
-            pnlModifica.DataContext = b;
+
         }
         private void btnActualizeaza_Click(object sender, RoutedEventArgs e)
         {
@@ -151,23 +159,43 @@ namespace Baterii
                 txtStatus.Text = "Selecteaza o baterie!";
                 return;
             }
-            if (!int.TryParse(txtModCantitate.Text, out int cantitate))
+            System.ComponentModel.IDataErrorInfo baterieCuValidare = b as System.ComponentModel.IDataErrorInfo;
+            if (baterieCuValidare != null)
             {
-                txtModCantitate.Foreground = Brushes.Red;
-                errModCantitate.Text = "Cantitate invalida!";
-                return;
-            }
+                string eroareCantitate = baterieCuValidare["Cantitate"];
+                string eroareData = baterieCuValidare["DataExpirare"];
 
-            if (dpModData.SelectedDate == null)
+                if (!string.IsNullOrEmpty(eroareCantitate))
+                {
+                    txtStatus.Text = eroareCantitate;
+                    txtModCantitate.Focus();
+                    return;
+                }
+
+                if (!string.IsNullOrEmpty(eroareData))
+                {
+                    txtStatus.Text = eroareData;
+                    dpModData.Focus();
+                    return;
+                }
+            }
+            else
             {
-                dpModData.Foreground = Brushes.Red;
-                errModData.Text = "Data este obligatorie!";
-                return;
+                if (b.Cantitate < 1)
+                {
+                    txtStatus.Text = "Cantitatea trebuie să fie de minim 1!";
+                    txtModCantitate.Focus();
+                    return;
+                }
+                if (b.DataExpirare == default || b.DataExpirare < DateTime.Today)
+                {
+                    txtStatus.Text = "Data expirării trebuie să fie în viitor!";
+                    dpModData.Focus();
+                    return;
+                }
             }
-
-
             admin.UpdateBaterie(b);
-            txtStatus.Text = $"Bateria '{b.Nume}' a fost actualizata!";
+            txtStatus.Text = $"Bateria '{b.Nume}' a fost actualizata cu succes!";
         }
         private void btnAnuleaza_Click(object sender, RoutedEventArgs e)
         {
@@ -176,8 +204,8 @@ namespace Baterii
         }
         private void mnuCauta_Click(object sender, RoutedEventArgs e)
         {
-            AscundeToatePanourile(); 
-            pnlCauta.Visibility = Visibility.Visible; 
+            AscundeToatePanourile();
+            pnlCauta.Visibility = Visibility.Visible;
 
         }
         private void btnCauta_Click(object sender, RoutedEventArgs e)
@@ -230,12 +258,20 @@ namespace Baterii
         }
         private void mnuSterge_Click(object sender, RoutedEventArgs e)
         {
-            AscundeToatePanourile(); 
-            pnlSterge.Visibility = Visibility.Visible; 
-
+            AscundeToatePanourile();
+            pnlSterge.Visibility = Visibility.Visible;
+            ColectieBaterii.Clear();
+            var bateriiDinFisier = admin.GetBaterii();
+            if (bateriiDinFisier != null)
+            {
+                foreach (var b in bateriiDinFisier)
+                {
+                    ColectieBaterii.Add(b);
+                }
+            }
             borderDetalii.Visibility = Visibility.Collapsed;
             txtConfirmare.Text = "";
-            
+
         }
         private void cmbSterge_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -288,6 +324,34 @@ namespace Baterii
             pnlVizualizeaza.Visibility = Visibility.Collapsed;
             pnlSterge.Visibility = Visibility.Collapsed;
         }
+    }
+    public class EnumToBooleanConverter : System.Windows.Data.IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            return value != null && value.ToString().Equals(parameter.ToString(), StringComparison.InvariantCultureIgnoreCase);
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            return value != null && (bool)value ? Enum.Parse(targetType, parameter.ToString(), true) : null;
+        }
+    }
+    public class EnumFlagsToBooleanConverter : System.Windows.Data.IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            if (value == null || parameter == null) return false;
 
+            int rawValue = (int)value;
+            int flagValue = (int)Enum.Parse(value.GetType(), parameter.ToString(), true);
+            return (rawValue & flagValue) == flagValue;
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            if (value == null || parameter == null) return null;
+            bool isChecked = (bool)value;
+            int flagValue = (int)Enum.Parse(targetType, parameter.ToString(), true);
+            return isChecked ? flagValue : 0;
+        }
     }
 }
