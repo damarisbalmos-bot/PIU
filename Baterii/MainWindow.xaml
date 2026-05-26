@@ -5,9 +5,152 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Baterii"
         mc:Ignorable="d"
-        Title="Inventar Baterii" 
-        Height="500" 
-        Width="900">
+        Title="Inventar Baterii"
+        Width="980"
+        SizeToContent="Height"
+        Background="#F5EFE6">
+    
+    
+    <Window.Resources>
+
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="#2A1500"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="Padding" Value="6,4"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Background" Value="#FAF6F0"/>
+            <Setter Property="Foreground" Value="#2A1500"/>
+            <Setter Property="BorderBrush" Value="#8B6343"/>
+            <Setter Property="BorderThickness" Value="1.5"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style TargetType="DatePicker">
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Background" Value="#FAF6F0"/>
+            <Setter Property="Foreground" Value="#2A1500"/>
+            <Setter Property="BorderBrush" Value="#8B6343"/>
+            <Setter Property="BorderThickness" Value="1.5"/>
+        </Style>
+
+        <Style TargetType="ComboBox">
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Background" Value="#FAF6F0"/>
+            <Setter Property="Foreground" Value="#2A1500"/>
+            <Setter Property="BorderBrush" Value="#8B6343"/>
+            <Setter Property="BorderThickness" Value="1.5"/>
+        </Style>
+
+        <Style TargetType="RadioButton">
+            <Setter Property="Foreground" Value="#2A1500"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Margin" Value="0,0,16,0"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style TargetType="CheckBox">
+            <Setter Property="Foreground" Value="#2A1500"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Margin" Value="0,0,20,0"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#F5EFE6"/>
+            <Setter Property="Background" Value="#3E2000"/>
+            <Setter Property="BorderBrush" Value="#C49A5A"/>
+            <Setter Property="BorderThickness" Value="1.5"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Padding" Value="10,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#5C3210"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="BtnSecundar" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Background" Value="#EDE0D0"/>
+            <Setter Property="Foreground" Value="#3E2000"/>
+            <Setter Property="BorderBrush" Value="#8B6343"/>
+        </Style>
+
+        <Style x:Key="BtnSterge" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Background" Value="#8B2500"/>
+            <Setter Property="BorderBrush" Value="#C44A20"/>
+        </Style>
+
+        <Style TargetType="ListView">
+            <Setter Property="Background" Value="#FAF6F0"/>
+            <Setter Property="BorderBrush" Value="#8B6343"/>
+            <Setter Property="BorderThickness" Value="1.5"/>
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+
+        <Style TargetType="GridViewColumnHeader">
+            <Setter Property="Background" Value="#3E2000"/>
+            <Setter Property="Foreground" Value="#F5EFE6"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="8,6"/>
+            <Setter Property="BorderBrush" Value="#C49A5A"/>
+            <Setter Property="BorderThickness" Value="0,0,1,2"/>
+        </Style>
+
+        <Style TargetType="ListViewItem">
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#D4C4B0"/>
+                    <Setter Property="Foreground" Value="#2A1500"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#EDE0D0"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="Menu">
+            <Setter Property="Background" Value="#3E2000"/>
+            <Setter Property="Foreground" Value="#F5EFE6"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Height" Value="36"/>
+        </Style>
+
+        <Style TargetType="MenuItem">
+            <Setter Property="Background" Value="#3E2000"/>
+            <Setter Property="Foreground" Value="#F5EFE6"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="14,8"/>
+        </Style>
+
+        <Style TargetType="StatusBar">
+            <Setter Property="Background" Value="#3E2000"/>
+            <Setter Property="Height" Value="28"/>
+        </Style>
+
+    </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -18,292 +161,278 @@
             <MenuItem Header="Baterii">
                 <MenuItem Header="Adauga Baterie"  x:Name="mnuAdauga" Click="mnuAdauga_Click"/>
                 <MenuItem Header="Modifica Baterie" x:Name="mnuModifica" Click="mnuModifica_Click"/>
-                <MenuItem Header="Sterge Baterie"  x:Name="mnuSterge"  Click="mnuSterge_Click"/>
+                <MenuItem Header="Sterge Baterie" x:Name="mnuSterge" Click="mnuSterge_Click"/>
                 <Separator/>
-                <MenuItem Header="Iesire"           x:Name="mnuIesire" Click="mnuIesire_Click"/>
+                <MenuItem Header="Iesire" x:Name="mnuIesire" Click="mnuIesire_Click"/>
             </MenuItem>
             <MenuItem Header="Cautare">
-                <MenuItem Header="Cauta dupa Tip"  x:Name="mnuCauta" Click="mnuCauta_Click"/>
+                <MenuItem Header="Cauta dupa Tip" x:Name="mnuCauta" Click="mnuCauta_Click"/>
             </MenuItem>
             <MenuItem Header="Inventar">
                 <MenuItem Header="Vizualizeaza tot" x:Name="mnuVizualizeaza" Click="mnuVizualizeaza_Click"/>
             </MenuItem>
         </Menu>
-        <ScrollViewer Grid.Row="1">
-            <StackPanel x:Name="pnlContinut" Margin="20">
-                <StackPanel x:Name="pnlAdauga">
+        <StackPanel x:Name="pnlContinut" Grid.Row="1" Margin="28,20,28,20" Background="#F5EFE6">
 
-                    <TextBlock Text="Adauga Baterie" FontSize="20" FontWeight="Bold" Margin="0,0,0,15"/>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="150"/>
-                            <ColumnDefinition Width="300"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="40"/>
-                            <RowDefinition Height="40"/>
-                            <RowDefinition Height="40"/>
-                            <RowDefinition Height="40"/>
-                        </Grid.RowDefinitions>
-                        <Label x:Name="lblNume" Grid.Row="0" Grid.Column="0" Content="Nume baterie:"/>
-                        <TextBox x:Name="txtNume" Grid.Row="0" Grid.Column="1" VerticalContentAlignment="Center"/>
-                        <TextBlock x:Name="errNume" Grid.Row="0" Grid.Column="2" 
-                           Foreground="Red" 
-                           VerticalAlignment="Center" 
-                           Margin="10,0,0,0"/>
-                        <Label x:Name="lblData" Grid.Row="1" Grid.Column="0" Content="Data expirare:"/>
-                        <DatePicker x:Name="dpData" Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center"/>
-                        <TextBlock x:Name="errData" Grid.Row="1" Grid.Column="2"
-                           Foreground="Red" 
-                           VerticalAlignment="Center" 
-                           Margin="10,0,0,0"/>
-                        <Label x:Name="lblCantitate" Grid.Row="2" Grid.Column="0" Content="Cantitate:"/>
-                        <TextBox x:Name="txtCantitate" Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Center"/>
-                        <TextBlock x:Name="errCantitate" Grid.Row="2" Grid.Column="2"
-                           Foreground="Red" 
-                           VerticalAlignment="Center" 
-                           Margin="10,0,0,0"/>
-                        <Label x:Name="lblProducator" Grid.Row="3" Grid.Column="0" Content="Producator:"/>
-                        <TextBox x:Name="txtProducator" Grid.Row="3" Grid.Column="1" VerticalContentAlignment="Center"/>
-                        <TextBlock x:Name="errProducator" Grid.Row="3" Grid.Column="2"
-                           Foreground="Red" 
-                           VerticalAlignment="Center" 
-                           Margin="10,0,0,0"/>
 
-                    </Grid>
-                    <StackPanel Margin="0,15,0,0">
-                        <Label Content="Tip baterie:" FontWeight="Bold"/>
-                        <StackPanel Orientation="Horizontal">
-                            <RadioButton x:Name="rbAlcalina"        Content="Alcalina"      Margin="0,0,15,0" IsChecked="True"/>
-                            <RadioButton x:Name="rbLitiu"           Content="Litiu"         Margin="0,0,15,0"/>
-                            <RadioButton x:Name="rbNichelMetal"     Content="Nichel-Metal"  Margin="0,0,15,0"/>
-                            <RadioButton x:Name="rbPlumb"           Content="Plumb"         Margin="0,0,15,0"/>
-                        </StackPanel>
-                        <TextBlock x:Name="errTip" Foreground="Red"/>
-                    </StackPanel>
-                    <StackPanel Margin="0,15,0,0">
-                        <Label Content="Optiuni:" FontWeight="Bold"/>
-                        <CheckBox x:Name="chkReincarcabila"      Content="Reincarcabila"       Margin="0,0,0,5"/>
-                        <CheckBox x:Name="chkImpermeabila"       Content="Impermeabila"        Margin="0,0,0,5"/>
-                        <CheckBox x:Name="chkTempScazuta"        Content="Temperatura Scazuta" Margin="0,0,0,5"/>
-                        <CheckBox x:Name="chkTempRidicata"       Content="Temperatura Ridicata"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
-                        <Button x:Name="btnAdauga" Content="Adauga"  Width="100" Height="35" Margin="0,0,10,0" Click="btnAdauga_Click"/>
-                        <Button x:Name="btnReset"  Content="Reset"   Width="100" Height="35" Click="btnReset_Click"/>
-                    </StackPanel>
-
-                </StackPanel>
-                <StackPanel x:Name="pnlModifica" Visibility="Collapsed">
-
-                    <TextBlock Text="Modifica Baterie" FontSize="20" FontWeight="Bold" Margin="0,0,0,15"/>
-                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                        <Label Content="Selecteaza bateria:" Width="150"/>
-                        <ComboBox x:Name="cmbBaterii" Width="300" 
-                            SelectionChanged="cmbBaterii_SelectionChanged"/>
+            <StackPanel x:Name="pnlAdauga">
+                <Border Background="#EDE0D0" BorderBrush="#C49A5A" BorderThickness="1.5" CornerRadius="8" Padding="24">
+                    <StackPanel>
+                        <TextBlock Text="Adauga Baterie" FontSize="20" FontWeight="SemiBold" Foreground="#3E2000" Margin="0,0,0,10"/>
+                        <Border Height="2" Background="#C49A5A" CornerRadius="1" Margin="0,0,0,16"/>
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="150"/>
-                                <ColumnDefinition Width="300"/>
+                                <ColumnDefinition Width="160"/>
+                                <ColumnDefinition Width="280"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="40"/>
-                                <RowDefinition Height="40"/>
-                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="44"/>
+                                <RowDefinition Height="44"/>
+                                <RowDefinition Height="44"/>
+                                <RowDefinition Height="44"/>
                             </Grid.RowDefinitions>
-                            <Label x:Name="lblModCantitate" Grid.Row="0" Grid.Column="0" Content="Cantitate:"/>
-                            <TextBox x:Name="txtModCantitate" Grid.Row="0" Grid.Column="1" VerticalContentAlignment="Center"/>
-                            <TextBlock x:Name="errModCantitate" Grid.Row="0" Grid.Column="2"
-                                Foreground="Red" 
-                                VerticalAlignment="Center" 
-                                Margin="10,0,0,0"/>
-                            <Label x:Name="lblModData" Grid.Row="1" Grid.Column="0" Content="Data expirare:"/>
-                            <DatePicker x:Name="dpModData" Grid.Row="1" Grid.Column="1"/>
-                            <TextBlock x:Name="errModData" Grid.Row="1" Grid.Column="2"
-                                        Foreground="Red" VerticalAlignment="Center" Margin="10,0,0,0"/>
-                            <Label x:Name="lblModProducator" Grid.Row="2" Grid.Column="0" Content="Producator:"/>
-                            <TextBox x:Name="txtModProducator" Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Center"/>
-                            <TextBlock x:Name="errModProducator" Grid.Row="2" Grid.Column="2"
-                                        Foreground="Red" VerticalAlignment="Center" Margin="10,0,0,0"/>
-                            <StackPanel Margin="0,15,0,0">
-                                <Label Content="Tip baterie:" FontWeight="Bold"/>
-                                <StackPanel Orientation="Horizontal">
-                                    <RadioButton x:Name="rbModAlcalina"    Content="Alcalina"     Margin="0,0,15,0"/>
-                                    <RadioButton x:Name="rbModLitiu"       Content="Litiu"        Margin="0,0,15,0"/>
-                                    <RadioButton x:Name="rbModNichelMetal" Content="Nichel-Metal" Margin="0,0,15,0"/>
-                                    <RadioButton x:Name="rbModPlumb"       Content="Plumb"        Margin="0,0,15,0"/>
-                                </StackPanel>
-                            </StackPanel>
-                            <StackPanel Margin="0,15,0,0">
-                                <Label Content="Optiuni:" FontWeight="Bold"/>
-                                <CheckBox x:Name="chkModReincarcabila"  Content="Reincarcabila"       Margin="0,0,0,5"/>
-                                <CheckBox x:Name="chkModImpermeabila"   Content="Impermeabila"        Margin="0,0,0,5"/>
-                                <CheckBox x:Name="chkModTempScazuta"    Content="Temperatura Scazuta" Margin="0,0,0,5"/>
-                                <CheckBox x:Name="chkModTempRidicata"   Content="Temperatura Ridicata"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
-                                <Button x:Name="btnActualizeaza" Content="Actualizeaza" 
-                                         Width="120" 
-                                         Height="35" 
-                                         Margin="0,0,10,0"
-                                         Click="btnActualizeaza_Click"/>
-                                <Button x:Name="btnAnuleaza" Content="Anuleaza" 
-                                        Width="100" 
-                                        Height="35"
-                                        Click="btnAnuleaza_Click"/>
-                            </StackPanel>
+                            <Label  Grid.Row="0" Grid.Column="0" Content="Nume baterie:"/>
+                            <TextBox x:Name="txtNume" Grid.Row="0" Grid.Column="1"/>
+                            <TextBlock x:Name="errNume" Grid.Row="0" Grid.Column="2" Foreground="#8B2500" FontSize="12" Margin="10,0,0,0"/>
+
+                            <Label  Grid.Row="1" Grid.Column="0" Content="Data expirare:"/>
+                            <DatePicker x:Name="dpData" Grid.Row="1" Grid.Column="1"/>
+                            <TextBlock x:Name="errData" Grid.Row="1" Grid.Column="2" Foreground="#8B2500" FontSize="12" Margin="10,0,0,0"/>
+
+                            <Label  Grid.Row="2" Grid.Column="0" Content="Cantitate:"/>
+                            <TextBox x:Name="txtCantitate" Grid.Row="2" Grid.Column="1"/>
+                            <TextBlock x:Name="errCantitate" Grid.Row="2" Grid.Column="2" Foreground="#8B2500" FontSize="12" Margin="10,0,0,0"/>
+
+                            <Label  Grid.Row="3" Grid.Column="0" Content="Producator:"/>
+                            <TextBox x:Name="txtProducator" Grid.Row="3" Grid.Column="1"/>
+                            <TextBlock x:Name="errProducator" Grid.Row="3" Grid.Column="2" Foreground="#8B2500" FontSize="12" Margin="10,0,0,0"/>
                         </Grid>
-                    </StackPanel>
-                </StackPanel>
-                <StackPanel x:Name="pnlCauta" Visibility="Collapsed">
 
-                    <TextBlock Text="Cauta dupa Tip" FontSize="20" FontWeight="Bold" Margin="0,0,0,15"/>
-                    <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
-                        <Label Content="Tip baterie:" Width="150"/>
-                        <ComboBox x:Name="cmbCautaTip"
-                                  Width="200"
-                                  SelectedIndex="0">
-                            <ComboBoxItem Content="Alcalina"/>
-                            <ComboBoxItem Content="Litiu"/>
-                            <ComboBoxItem Content="Nichel-Metal"/>
-                            <ComboBoxItem Content="Plumb"/>
-                        </ComboBox>
-                        <Button Content="Cauta" 
-                                Width="100" 
-                                Height="30" 
-                                Margin="10,0,0,0"
-                                Click="btnCauta_Click"/>
-                    </StackPanel>
-                    <TextBlock x:Name="txtNrRezultate" 
-                               Margin="0,0,0,5" 
-                               Foreground="Gray"/>
-                    <ListView x:Name="lvRezultate" Height="300">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="Nume"          
-                                                Width="150"
-                                                DisplayMemberBinding="{Binding Nume}"/>
-                                <GridViewColumn Header="Tip"           
-                                                Width="100"
-                                                DisplayMemberBinding="{Binding Tip}"/>
-                                <GridViewColumn Header="Cantitate"     
-                                                Width="80"
-                                                DisplayMemberBinding="{Binding Cantitate}"/>
-                                <GridViewColumn Header="Data Expirare" 
-                                                Width="120"
-                                                DisplayMemberBinding="{Binding DataExpirare, StringFormat=dd/MM/yyyy}"/>
-                                <GridViewColumn Header="Optiuni"       
-                                                Width="150"
-                                                DisplayMemberBinding="{Binding Optiuni}"/>
-                                <GridViewColumn Header="Producator"    
-                                                Width="150"
-                                                DisplayMemberBinding="{Binding Producator.Nume}"/>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                </StackPanel>
-                <StackPanel x:Name="pnlVizualizeaza" Visibility="Collapsed">
+                        <TextBlock Text="Tip baterie:" FontWeight="SemiBold" Foreground="#3E2000" Margin="0,14,0,6"/>
+                        <Border Background="#FAF6F0" BorderBrush="#8B6343" BorderThickness="1.5" CornerRadius="4" Padding="12,8">
+                            <StackPanel Orientation="Horizontal">
+                                <RadioButton x:Name="rbAlcalina" Content="Alcalina" IsChecked="True"/>
+                                <RadioButton x:Name="rbLitiu" Content="Litiu"/>
+                                <RadioButton x:Name="rbNichelMetal" Content="Nichel-Metal"/>
+                                <RadioButton x:Name="rbPlumb" Content="Plumb"/>
+                            </StackPanel>
+                        </Border>
+                        <TextBlock x:Name="errTip" Foreground="#8B2500" FontSize="12" Margin="0,4,0,0"/>
 
-                    <TextBlock Text="Inventar Complet" FontSize="20" FontWeight="Bold" Margin="0,0,0,15"/>
-                    <TextBlock x:Name="txtNrTotal" Margin="0,0,0,10" Foreground="Gray"/>
-
-                    <ListView x:Name="lvInventar" Height="400">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="Nume"          Width="150"
-                                                DisplayMemberBinding="{Binding Nume}"/>
-                                <GridViewColumn Header="Tip"           Width="100"
-                                                DisplayMemberBinding="{Binding Tip}"/>
-                                <GridViewColumn Header="Cantitate"     Width="80"
-                                                DisplayMemberBinding="{Binding Cantitate}"/>
-                                <GridViewColumn Header="Data Expirare" Width="120"
-                                                DisplayMemberBinding="{Binding DataExpirare, StringFormat=dd/MM/yyyy}"/>
-                                <GridViewColumn Header="Optiuni"       Width="150"
-                                                DisplayMemberBinding="{Binding Optiuni}"/>
-                                <GridViewColumn Header="Producator"    Width="150"
-                                                DisplayMemberBinding="{Binding Producator.Nume}"/>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                    <Button Content="Refresh" 
-                            Width="100" 
-                            Height="35"
-                            Margin="0,10,0,0" 
-                            HorizontalAlignment="Left"
-                            Click="btnRefresh_Click"/>
-
-                </StackPanel>
-                <StackPanel x:Name="pnlSterge" Visibility="Collapsed">
-
-                    <TextBlock Text="Sterge Baterie" FontSize="20" FontWeight="Bold" Margin="0,0,0,15"/>
-                    <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
-                        <Label Content="Selecteaza bateria:" Width="150"/>
-                        <ComboBox x:Name="cmbSterge" Width="300"
-                                    DisplayMemberPath="Nume"
-                                    SelectionChanged="cmbSterge_SelectionChanged"/>
-                    </StackPanel>
-                    <Border x:Name="borderDetalii" Visibility="Collapsed"
-                            BorderBrush="Gray" 
-                            BorderThickness="1"
-                            CornerRadius="5" 
-                            Padding="15" 
-                            Margin="0,0,0,15">
-                        <StackPanel>
-                            <TextBlock Text="Detalii baterie selectata:" 
-                       FontWeight="Bold" Margin="0,0,0,10"/>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="150"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="30"/>
-                                    <RowDefinition Height="30"/>
-                                    <RowDefinition Height="30"/>
-                                    <RowDefinition Height="30"/>
-                                    <RowDefinition Height="30"/>
-                                </Grid.RowDefinitions>
-
-                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Nume:"          FontWeight="SemiBold"/>
-                                <TextBlock Grid.Row="0" Grid.Column="1" x:Name="txtDetNume"/>
-
-                                <TextBlock Grid.Row="1" Grid.Column="0" Text="Tip:"           FontWeight="SemiBold"/>
-                                <TextBlock Grid.Row="1" Grid.Column="1" x:Name="txtDetTip"/>
-
-                                <TextBlock Grid.Row="2" Grid.Column="0" Text="Cantitate:"     FontWeight="SemiBold"/>
-                                <TextBlock Grid.Row="2" Grid.Column="1" x:Name="txtDetCantitate"/>
-
-                                <TextBlock Grid.Row="3" Grid.Column="0" Text="Data Expirare:" FontWeight="SemiBold"/>
-                                <TextBlock Grid.Row="3" Grid.Column="1" x:Name="txtDetData"/>
-
-                                <TextBlock Grid.Row="4" Grid.Column="0" Text="Producator:"    FontWeight="SemiBold"/>
-                                <TextBlock Grid.Row="4" Grid.Column="1" x:Name="txtDetProducator"/>
-                            </Grid>
+                        <TextBlock Text="Optiuni:" FontWeight="SemiBold" Foreground="#3E2000" Margin="0,14,0,6"/>
+                        <Border Background="#FAF6F0" BorderBrush="#8B6343" BorderThickness="1.5" CornerRadius="4" Padding="12,10">
+                            <WrapPanel>
+                                <CheckBox x:Name="chkReincarcabila" Content="Reincarcabila"/>
+                                <CheckBox x:Name="chkImpermeabila" Content="Impermeabila"/>
+                                <CheckBox x:Name="chkTempScazuta" Content="Temperatura Scazuta"/>
+                                <CheckBox x:Name="chkTempRidicata" Content="Temperatura Ridicata"/>
+                            </WrapPanel>
+                        </Border>
+                        <StackPanel Orientation="Horizontal" Margin="0,18,0,0">
+                            <Button x:Name="btnAdauga" Content="Adauga" Width="110" Margin="0,0,10,0" Click="btnAdauga_Click"/>
+                            <Button x:Name="btnReset"  Content="Reset" Width="110" Style="{StaticResource BtnSecundar}" Click="btnReset_Click"/>
                         </StackPanel>
-                    </Border>
-                    <TextBlock x:Name="txtConfirmare" Foreground="OrangeRed"
-                               FontWeight="Bold"  
-                               Margin="0,0,0,15"/>
-                    <StackPanel Orientation="Horizontal">
-                        <Button x:Name="btnSterge" Content="Sterge" 
-                                Width="100" 
-                                Height="35" 
-                                Margin="0,0,10,0"
-                                Background="Red" 
-                                Foreground="White"
-                                Click="btnSterge_Click"/>
-                        <Button x:Name="btnAnuleazaSterge" Content="Anuleaza" 
-                                Width="100" Height="35"
-                                Click="btnAnuleazaSterge_Click"/>
-                    </StackPanel>
 
-                </StackPanel>
+                    </StackPanel>
+                </Border>
             </StackPanel>
-        </ScrollViewer>
+            
+            
+            <StackPanel x:Name="pnlModifica" Visibility="Collapsed">
+                
+                <Border Background="#EDE0D0" BorderBrush="#C49A5A" BorderThickness="1.5" CornerRadius="8" Padding="24">
+                    <StackPanel>
+                        <TextBlock Text="Modifica Baterie" FontSize="20" FontWeight="SemiBold" Foreground="#3E2000" Margin="0,0,0,10"/>
+                        <Border Height="2" Background="#C49A5A" CornerRadius="1" Margin="0,0,0,16"/>
+
+                        <Grid Margin="0,0,0,16">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="160"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="Selecteaza bateria:"/>
+                            <ComboBox x:Name="cmbBaterii" Grid.Column="1" SelectionChanged="cmbBaterii_SelectionChanged"/>
+                        </Grid>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="160"/>
+                                <ColumnDefinition Width="280"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="44"/>
+                                <RowDefinition Height="44"/>
+                                <RowDefinition Height="44"/>
+                            </Grid.RowDefinitions>
+
+                            <Label  Grid.Row="0" Grid.Column="0" Content="Cantitate:"/>
+                            <TextBox x:Name="txtModCantitate" Grid.Row="0" Grid.Column="1"/>
+                            <TextBlock x:Name="errModCantitate" Grid.Row="0" Grid.Column="2" Foreground="#8B2500" FontSize="12" Margin="10,0,0,0"/>
+
+                            <Label  Grid.Row="1" Grid.Column="0" Content="Data expirare:"/>
+                            <DatePicker x:Name="dpModData" Grid.Row="1" Grid.Column="1"/>
+                            <TextBlock x:Name="errModData" Grid.Row="1" Grid.Column="2" Foreground="#8B2500" FontSize="12" Margin="10,0,0,0"/>
+
+                            <Label  Grid.Row="2" Grid.Column="0" Content="Producator:"/>
+                            <TextBox x:Name="txtModProducator" Grid.Row="2" Grid.Column="1"/>
+                            <TextBlock x:Name="errModProducator" Grid.Row="2" Grid.Column="2" Foreground="#8B2500" FontSize="12" Margin="10,0,0,0"/>
+                        </Grid>
+
+                        <TextBlock Text="Tip baterie:" FontWeight="SemiBold" Foreground="#3E2000" Margin="0,14,0,6"/>
+                        <Border Background="#FAF6F0" BorderBrush="#8B6343" BorderThickness="1.5" CornerRadius="4" Padding="12,8">
+                            <StackPanel Orientation="Horizontal">
+                                <RadioButton x:Name="rbModAlcalina" Content="Alcalina"/>
+                                <RadioButton x:Name="rbModLitiu" Content="Litiu"/>
+                                <RadioButton x:Name="rbModNichelMetal" Content="Nichel-Metal"/>
+                                <RadioButton x:Name="rbModPlumb" Content="Plumb"/>
+                            </StackPanel>
+                        </Border>
+
+                        <TextBlock Text="Optiuni:" FontWeight="SemiBold" Foreground="#3E2000" Margin="0,14,0,6"/>
+                        <Border Background="#FAF6F0" BorderBrush="#8B6343" BorderThickness="1.5" CornerRadius="4" Padding="12,10">
+                            <WrapPanel>
+                                <CheckBox x:Name="chkModReincarcabila" Content="Reincarcabila"/>
+                                <CheckBox x:Name="chkModImpermeabila" Content="Impermeabila"/>
+                                <CheckBox x:Name="chkModTempScazuta" Content="Temperatura Scazuta"/>
+                                <CheckBox x:Name="chkModTempRidicata" Content="Temperatura Ridicata"/>
+                            </WrapPanel>
+                        </Border>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,18,0,0">
+                            <Button x:Name="btnActualizeaza" Content="Actualizeaza" Width="130" Margin="0,0,10,0" Click="btnActualizeaza_Click"/>
+                            <Button x:Name="btnAnuleaza" Content="Anuleaza" Width="110" Style="{StaticResource BtnSecundar}" Click="btnAnuleaza_Click"/>
+                        </StackPanel>
+                        
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+            <StackPanel x:Name="pnlCauta" Visibility="Collapsed">
+                <Border Background="#EDE0D0" BorderBrush="#C49A5A" BorderThickness="1.5" CornerRadius="8" Padding="24">
+                    <StackPanel>
+                        <TextBlock Text="Cauta dupa Tip" FontSize="20" FontWeight="SemiBold" Foreground="#3E2000" Margin="0,0,0,10"/>
+                        <Border Height="2" Background="#C49A5A" CornerRadius="1" Margin="0,0,0,16"/>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,14">
+                            <Label Content="Tip baterie:" Width="160"/>
+                            <ComboBox x:Name="cmbCautaTip" Width="200" SelectedIndex="0">
+                                <ComboBoxItem Content="Alcalina"/>
+                                <ComboBoxItem Content="Litiu"/>
+                                <ComboBoxItem Content="Nichel-Metal"/>
+                                <ComboBoxItem Content="Plumb"/>
+                            </ComboBox>
+                            <Button Content="Cauta" Width="100" Margin="12,0,0,0" Click="btnCauta_Click"/>
+                        </StackPanel>
+
+                        <TextBlock x:Name="txtNrRezultate" Foreground="#8B6343" FontStyle="Italic" Margin="0,0,0,8"/>
+                        <ListView x:Name="lvRezultate" Height="280">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Nume" Width="150" DisplayMemberBinding="{Binding Nume}"/>
+                                    <GridViewColumn Header="Tip" Width="100" DisplayMemberBinding="{Binding Tip}"/>
+                                    <GridViewColumn Header="Cantitate" Width="80"  DisplayMemberBinding="{Binding Cantitate}"/>
+                                    <GridViewColumn Header="Data Expirare" Width="120" DisplayMemberBinding="{Binding DataExpirare, StringFormat=dd/MM/yyyy}"/>
+                                    <GridViewColumn Header="Optiuni" Width="150" DisplayMemberBinding="{Binding Optiuni}"/>
+                                    <GridViewColumn Header="Producator" Width="150" DisplayMemberBinding="{Binding Producator.Nume}"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+            <StackPanel x:Name="pnlVizualizeaza" Visibility="Collapsed">
+                <Border Background="#EDE0D0" BorderBrush="#C49A5A" BorderThickness="1.5" CornerRadius="8" Padding="24">
+                    <StackPanel>
+                        <TextBlock Text="Inventar Complet" FontSize="20" FontWeight="SemiBold" Foreground="#3E2000" Margin="0,0,0,10"/>
+                        <Border Height="2" Background="#C49A5A" CornerRadius="1" Margin="0,0,0,16"/>
+
+                        <TextBlock x:Name="txtNrTotal" Foreground="#8B6343" FontStyle="Italic" Margin="0,0,0,10"/>
+                        <ListView x:Name="lvInventar" Height="380">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Nume" Width="150" DisplayMemberBinding="{Binding Nume}"/>
+                                    <GridViewColumn Header="Tip" Width="100" DisplayMemberBinding="{Binding Tip}"/>
+                                    <GridViewColumn Header="Cantitate" Width="80"  DisplayMemberBinding="{Binding Cantitate}"/>
+                                    <GridViewColumn Header="Data Expirare" Width="120" DisplayMemberBinding="{Binding DataExpirare, StringFormat=dd/MM/yyyy}"/>
+                                    <GridViewColumn Header="Optiuni" Width="150" DisplayMemberBinding="{Binding Optiuni}"/>
+                                    <GridViewColumn Header="Producator" Width="150" DisplayMemberBinding="{Binding Producator.Nume}"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        <Button Content="Refresh" Width="110" HorizontalAlignment="Left"
+                                Margin="0,12,0,0" Style="{StaticResource BtnSecundar}" Click="btnRefresh_Click"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+            <StackPanel x:Name="pnlSterge" Visibility="Collapsed">
+                
+                <Border Background="#EDE0D0" BorderBrush="#C49A5A" BorderThickness="1.5" CornerRadius="8" Padding="24">
+                    <StackPanel>
+                        <TextBlock Text="Sterge Baterie" FontSize="20" FontWeight="SemiBold" Foreground="#3E2000" Margin="0,0,0,10"/>
+                        <Border Height="2" Background="#C49A5A" CornerRadius="1" Margin="0,0,0,16"/>
+
+                        <Grid Margin="0,0,0,16">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="160"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="Selecteaza bateria:"/>
+                            <ComboBox x:Name="cmbSterge" Grid.Column="1" DisplayMemberPath="Nume"
+                                      SelectionChanged="cmbSterge_SelectionChanged"/>
+                        </Grid>
+
+                        <Border x:Name="borderDetalii" Visibility="Collapsed"
+                                Background="#FAF6F0" BorderBrush="#8B6343" BorderThickness="1.5"
+                                CornerRadius="6" Padding="16" Margin="0,0,0,16">
+                            <StackPanel>
+                                <TextBlock Text="Detalii baterie selectata:" FontWeight="SemiBold" Foreground="#3E2000" Margin="0,0,0,10"/>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="160"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="30"/>
+                                    </Grid.RowDefinitions>
+                                    
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Nume:" FontWeight="SemiBold"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="1" x:Name="txtDetNume"/>
+                                    
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Tip:" FontWeight="SemiBold"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="1" x:Name="txtDetTip"/>
+                                    
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Cantitate:" FontWeight="SemiBold"/>
+                                    <TextBlock Grid.Row="2" Grid.Column="1" x:Name="txtDetCantitate"/>
+                                    
+                                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Data Expirare:" FontWeight="SemiBold"/>
+                                    <TextBlock Grid.Row="3" Grid.Column="1" x:Name="txtDetData"/>
+                                    
+                                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Producator:" FontWeight="SemiBold"/>
+                                    <TextBlock Grid.Row="4" Grid.Column="1" x:Name="txtDetProducator"/>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+
+                        <TextBlock x:Name="txtConfirmare" Foreground="#8B2500" FontWeight="Bold" Margin="0,0,0,16"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="btnSterge"         Content="Sterge"  Width="110" Margin="0,0,10,0" Style="{StaticResource BtnSterge}" Click="btnSterge_Click"/>
+                            <Button x:Name="btnAnuleazaSterge" Content="Anuleaza" Width="110" Style="{StaticResource BtnSecundar}" Click="btnAnuleazaSterge_Click"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+        </StackPanel>
+
         <StatusBar Grid.Row="2">
-            <TextBlock x:Name="txtStatus" Text="Gata."/>
+            <TextBlock x:Name="txtStatus" Text="Gata." Foreground="#C49A5A"/>
         </StatusBar>
     </Grid>
+    
 </Window>

@@ -25,47 +25,47 @@ namespace Baterii
             if (string.IsNullOrWhiteSpace(txtNume.Text))
             {
                 codEroare = 1;
-                lblNume.Foreground = Brushes.Red;
+                txtNume.Foreground = Brushes.Red;
                 errNume.Text = "Numele este obligatoriu!";
             }
             else if (txtNume.Text.Length > LUNGIME_MAX_NUME)
             {
                 codEroare = 2;
-                lblNume.Foreground = Brushes.Red;
+                txtNume.Foreground = Brushes.Red;
                 errNume.Text = $"Max {LUNGIME_MAX_NUME} caractere!";
             }
             if (dpData.SelectedDate == null)
             {
                 codEroare = 3;
-                lblData.Foreground = Brushes.Red;
+                dpData.Foreground = Brushes.Red;
                 errData.Text = "Data expirarii este obligatorie!";
             }
             if (string.IsNullOrWhiteSpace(txtCantitate.Text))
             {
                 codEroare = 4;
-                lblCantitate.Foreground = Brushes.Red;
+                txtCantitate.Foreground = Brushes.Red;
                 errCantitate.Text = "Cantitatea este obligatorie!";
             }
             else if (!int.TryParse(txtCantitate.Text, out int cant) || cant < CANTITATE_MIN)
             {
                 codEroare = 5;
-                lblCantitate.Foreground = Brushes.Red;
+                txtCantitate.Foreground = Brushes.Red;
                 errCantitate.Text = "Cantitate invalida!";
             }
             if (string.IsNullOrWhiteSpace(txtProducator.Text))
             {
                 codEroare = 6;
-                lblProducator.Foreground = Brushes.Red;
+                txtProducator.Foreground = Brushes.Red;
                 errProducator.Text = "Producatorul este obligatoriu!";
             }
             return codEroare;
         }
         private void ResetErori()
         {
-            lblNume.Foreground = Brushes.Black;
-            lblData.Foreground = Brushes.Black;
-            lblCantitate.Foreground = Brushes.Black;
-            lblProducator.Foreground = Brushes.Black;
+            txtNume.Foreground = Brushes.Black;
+            dpData.Foreground = Brushes.Black;
+            txtCantitate.Foreground = Brushes.Black;
+            txtProducator.Foreground = Brushes.Black;
             errNume.Text = "";
             errData.Text = "";
             errCantitate.Text = "";
@@ -155,14 +155,14 @@ namespace Baterii
             }
             if (!int.TryParse(txtModCantitate.Text, out int cantitate))
             {
-                lblModCantitate.Foreground = Brushes.Red;
+                txtModCantitate.Foreground = Brushes.Red;
                 errModCantitate.Text = "Cantitate invalida!";
                 return;
             }
 
             if (dpModData.SelectedDate == null)
             {
-                lblModData.Foreground = Brushes.Red;
+                dpModData.Foreground = Brushes.Red;
                 errModData.Text = "Data este obligatorie!";
                 return;
             }

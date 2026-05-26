@@ -1,1 +1,4 @@
 A!!!A;Litiu;2026-05-01;4;4;ION;;
+,m ;Alcalina;2026-05-08;3;3;sfa;;
+ddd;Litiu;2026-05-09;3;4;fff;;
+aaaa;Plumb;2025-05-22;1;1;dama;;
