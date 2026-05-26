@@ -121,30 +121,21 @@ namespace Baterii
         }
         private void mnuAdauga_Click(object sender, RoutedEventArgs e)
         {
+            AscundeToatePanourile(); 
             pnlAdauga.Visibility = Visibility.Visible;
-            pnlModifica.Visibility = Visibility.Collapsed;
+
         }
         private void mnuModifica_Click(object sender, RoutedEventArgs e)
         {
-            pnlAdauga.Visibility = Visibility.Collapsed;
-            pnlModifica.Visibility = Visibility.Visible;
+            AscundeToatePanourile(); 
+            pnlModifica.Visibility = Visibility.Visible; 
             cmbBaterii.ItemsSource = admin.GetBaterii();
             cmbBaterii.DisplayMemberPath = "Nume";
         }
         private void cmbBaterii_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (cmbBaterii.SelectedItem is not Baterie b) return;
-            txtModCantitate.Text = b.Cantitate.ToString();
-            dpModData.SelectedDate = b.DataExpirare;
-            txtModProducator.Text = b.Producator.Nume;
-            rbModAlcalina.IsChecked = b.Tip == TipBaterie.Alcalina;
-            rbModLitiu.IsChecked = b.Tip == TipBaterie.Litiu;
-            rbModNichelMetal.IsChecked = b.Tip == TipBaterie.NichelMetal;
-            rbModPlumb.IsChecked = b.Tip == TipBaterie.Plumb;
-            chkModReincarcabila.IsChecked = b.Optiuni.HasFlag(OptiuniBaterie.Reincarcabila);
-            chkModImpermeabila.IsChecked = b.Optiuni.HasFlag(OptiuniBaterie.Impermeabila);
-            chkModTempScazuta.IsChecked = b.Optiuni.HasFlag(OptiuniBaterie.TemperaturaScazuta);
-            chkModTempRidicata.IsChecked = b.Optiuni.HasFlag(OptiuniBaterie.TemperaturaRidicata);
+            pnlModifica.DataContext = b;
         }
         private void btnActualizeaza_Click(object sender, RoutedEventArgs e)
         {
@@ -166,18 +157,7 @@ namespace Baterii
                 errModData.Text = "Data este obligatorie!";
                 return;
             }
-            b.Cantitate = cantitate;
-            b.DataExpirare = dpModData.SelectedDate.Value;
-            b.Producator.Nume = txtModProducator.Text;
-            if (rbModLitiu.IsChecked == true) b.Tip = TipBaterie.Litiu;
-            else if (rbModNichelMetal.IsChecked == true) b.Tip = TipBaterie.NichelMetal;
-            else if (rbModPlumb.IsChecked == true) b.Tip = TipBaterie.Plumb;
-            else b.Tip = TipBaterie.Alcalina;
-            b.Optiuni = OptiuniBaterie.Niciuna;
-            if (chkModReincarcabila.IsChecked == true) b.Optiuni |= OptiuniBaterie.Reincarcabila;
-            if (chkModImpermeabila.IsChecked == true) b.Optiuni |= OptiuniBaterie.Impermeabila;
-            if (chkModTempScazuta.IsChecked == true) b.Optiuni |= OptiuniBaterie.TemperaturaScazuta;
-            if (chkModTempRidicata.IsChecked == true) b.Optiuni |= OptiuniBaterie.TemperaturaRidicata;
+
 
             admin.UpdateBaterie(b);
             txtStatus.Text = $"Bateria '{b.Nume}' a fost actualizata!";
@@ -189,12 +169,9 @@ namespace Baterii
         }
         private void mnuCauta_Click(object sender, RoutedEventArgs e)
         {
-            pnlAdauga.Visibility = Visibility.Collapsed;
-            pnlModifica.Visibility = Visibility.Collapsed;
-            pnlCauta.Visibility = Visibility.Visible;
-            pnlVizualizeaza.Visibility = Visibility.Collapsed;
-            lvRezultate.ItemsSource = null;
-            txtNrRezultate.Text = "";
+            AscundeToatePanourile(); 
+            pnlCauta.Visibility = Visibility.Visible; 
+
         }
         private void btnCauta_Click(object sender, RoutedEventArgs e)
         {
@@ -217,9 +194,7 @@ namespace Baterii
         }
         private void mnuVizualizeaza_Click(object sender, RoutedEventArgs e)
         {
-            pnlAdauga.Visibility = Visibility.Collapsed;
-            pnlModifica.Visibility = Visibility.Collapsed;
-            pnlCauta.Visibility = Visibility.Collapsed;
+            AscundeToatePanourile();
             pnlVizualizeaza.Visibility = Visibility.Visible;
 
             IncarcaInventar();
@@ -251,11 +226,8 @@ namespace Baterii
         }
         private void mnuSterge_Click(object sender, RoutedEventArgs e)
         {
-            pnlAdauga.Visibility = Visibility.Collapsed;
-            pnlModifica.Visibility = Visibility.Collapsed;
-            pnlCauta.Visibility = Visibility.Collapsed;
-            pnlVizualizeaza.Visibility = Visibility.Collapsed;
-            pnlSterge.Visibility = Visibility.Visible;
+            AscundeToatePanourile(); 
+            pnlSterge.Visibility = Visibility.Visible; 
             cmbSterge.ItemsSource = admin.GetBaterii();
             borderDetalii.Visibility = Visibility.Collapsed;
             txtConfirmare.Text = "";
@@ -302,6 +274,14 @@ namespace Baterii
         {
             pnlSterge.Visibility = Visibility.Collapsed;
             pnlAdauga.Visibility = Visibility.Visible;
+        }
+        private void AscundeToatePanourile()
+        {
+            pnlAdauga.Visibility = Visibility.Collapsed;
+            pnlModifica.Visibility = Visibility.Collapsed;
+            pnlCauta.Visibility = Visibility.Collapsed;
+            pnlVizualizeaza.Visibility = Visibility.Collapsed;
+            pnlSterge.Visibility = Visibility.Collapsed;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
 namespace LibrarieModele
 {
     public enum TipBaterie
@@ -17,7 +18,7 @@ namespace LibrarieModele
         TemperaturaScazuta = 4,
         TemperaturaRidicata = 8
     }
-    public class Baterie
+    public class Baterie: INotifyPropertyChanged
     {
         private const char SEPARATOR_PRINCIPAL = ';';
         private const char SEPARATOR_PRODUCATOR = '|';
@@ -32,9 +33,41 @@ namespace LibrarieModele
         public string Nume { get; set; }
         public TipBaterie Tip { get; set; }
         public OptiuniBaterie Optiuni { get; set; }
-        public DateTime DataExpirare { get; set; }
-        public int Cantitate { get; set; }
         public Producator Producator { get; set; }
+        private int _cantitate;
+        private DateTime _dataExpirare;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        public DateTime DataExpirare
+        {
+            get { return _dataExpirare; }
+            set
+            {
+                if (_dataExpirare != value)
+                {
+                    _dataExpirare = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public int Cantitate
+        {
+            get { return _cantitate; }
+            set
+            {
+                if (_cantitate != value)
+                {
+                    _cantitate = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public Baterie(string nume, TipBaterie tip, DateTime dataExpirare, int cantitate, Producator producator, OptiuniBaterie optiuni)
         {
             Nume = nume;
@@ -75,6 +108,12 @@ namespace LibrarieModele
         public override string ToString()
         {
             return $"{Nume} -{Tip} -Expirare: {DataExpirare.ToShortDateString()} -Cantitate: {Cantitate} -Optiuni:{Optiuni} -Producator: {Producator.Info()}";
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

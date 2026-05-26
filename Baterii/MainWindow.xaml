@@ -267,15 +267,18 @@
                             </Grid.RowDefinitions>
 
                             <Label  Grid.Row="0" Grid.Column="0" Content="Cantitate:"/>
-                            <TextBox x:Name="txtModCantitate" Grid.Row="0" Grid.Column="1"/>
+                            <TextBox x:Name="txtModCantitate" Grid.Row="0" Grid.Column="1" 
+                                            Text="{Binding Cantitate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                             <TextBlock x:Name="errModCantitate" Grid.Row="0" Grid.Column="2" Foreground="#8B2500" FontSize="12" Margin="10,0,0,0"/>
 
                             <Label  Grid.Row="1" Grid.Column="0" Content="Data expirare:"/>
-                            <DatePicker x:Name="dpModData" Grid.Row="1" Grid.Column="1"/>
+                            <DatePicker x:Name="dpModData" Grid.Row="1" Grid.Column="1" 
+                                                SelectedDate="{Binding DataExpirare, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                             <TextBlock x:Name="errModData" Grid.Row="1" Grid.Column="2" Foreground="#8B2500" FontSize="12" Margin="10,0,0,0"/>
 
                             <Label  Grid.Row="2" Grid.Column="0" Content="Producator:"/>
-                            <TextBox x:Name="txtModProducator" Grid.Row="2" Grid.Column="1"/>
+                            <TextBox x:Name="txtModProducator" Grid.Row="2" Grid.Column="1" 
+                                            Text="{Binding Producator.Nume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                             <TextBlock x:Name="errModProducator" Grid.Row="2" Grid.Column="2" Foreground="#8B2500" FontSize="12" Margin="10,0,0,0"/>
                         </Grid>
 
