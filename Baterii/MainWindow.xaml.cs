@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using LibrarieModele;
 using NivelStocareDate;
+using System.Collections.ObjectModel;
 
 
 namespace Baterii
@@ -13,10 +14,15 @@ namespace Baterii
         private const int CANTITATE_MIN = 1;
 
         static IStocareData admin = StocareFactory.GetAdministratorStocare();
-
+        public ObservableCollection<Baterie> ColectieBaterii { get; set; } = new ObservableCollection<Baterie>();
         public MainWindow()
         {
             InitializeComponent();
+            foreach (var bat in admin.GetBaterii())
+            {
+                ColectieBaterii.Add(bat);
+            }
+            this.DataContext = this;
         }
         private int ValideazaDateBaterie()
         {
@@ -97,7 +103,7 @@ namespace Baterii
                 prod,
                 optiuni
             );
-            admin.AddBaterie(baterie);
+            ColectieBaterii.Add(baterie);
             txtStatus.Text = $"Bateria '{baterie.Nume}' a fost adaugata!";
             ExecutaReset();
         }
@@ -123,13 +129,14 @@ namespace Baterii
         {
             AscundeToatePanourile(); 
             pnlAdauga.Visibility = Visibility.Visible;
+            
 
         }
         private void mnuModifica_Click(object sender, RoutedEventArgs e)
         {
             AscundeToatePanourile(); 
             pnlModifica.Visibility = Visibility.Visible; 
-            cmbBaterii.ItemsSource = admin.GetBaterii();
+            
             cmbBaterii.DisplayMemberPath = "Nume";
         }
         private void cmbBaterii_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -201,20 +208,17 @@ namespace Baterii
         }
         private void IncarcaInventar()
         {
-            List<Baterie> toate = admin.GetBaterii();
 
-            if (toate.Count == 0)
+            if (ColectieBaterii.Count == 0)
             {
                 txtNrTotal.Text = "Nu exista baterii in inventar.";
-                lvInventar.ItemsSource = null;
             }
             else
             {
-                txtNrTotal.Text = $"Total baterii: {toate.Count}";
-                lvInventar.ItemsSource = toate;
+                txtNrTotal.Text = $"Total baterii: {ColectieBaterii.Count}";
             }
 
-            txtStatus.Text = $"Inventar incarcat: {toate.Count} baterii.";
+            txtStatus.Text = $"Inventar incarcat: {ColectieBaterii.Count} baterii.";
         }
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
@@ -228,9 +232,10 @@ namespace Baterii
         {
             AscundeToatePanourile(); 
             pnlSterge.Visibility = Visibility.Visible; 
-            cmbSterge.ItemsSource = admin.GetBaterii();
+
             borderDetalii.Visibility = Visibility.Collapsed;
             txtConfirmare.Text = "";
+            
         }
         private void cmbSterge_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -261,7 +266,7 @@ namespace Baterii
             if (ok)
             {
                 txtStatus.Text = $"Bateria '{b.Nume}' a fost stearsa!";
-                cmbSterge.ItemsSource = admin.GetBaterii();
+                ColectieBaterii.Remove(b);
                 borderDetalii.Visibility = Visibility.Collapsed;
                 txtConfirmare.Text = "";
             }
@@ -283,5 +288,6 @@ namespace Baterii
             pnlVizualizeaza.Visibility = Visibility.Collapsed;
             pnlSterge.Visibility = Visibility.Collapsed;
         }
+
     }
 }

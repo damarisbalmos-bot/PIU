@@ -252,7 +252,9 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="0" Content="Selecteaza bateria:"/>
-                            <ComboBox x:Name="cmbBaterii" Grid.Column="1" SelectionChanged="cmbBaterii_SelectionChanged"/>
+                            <ComboBox x:Name="cmbBaterii" Grid.Column="1" 
+                                            ItemsSource="{Binding ColectieBaterii}" DisplayMemberPath="Nume"
+                                            SelectionChanged="cmbBaterii_SelectionChanged"/>
                         </Grid>
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -352,7 +354,7 @@
                         <Border Height="2" Background="#C49A5A" CornerRadius="1" Margin="0,0,0,16"/>
 
                         <TextBlock x:Name="txtNrTotal" Foreground="#8B6343" FontStyle="Italic" Margin="0,0,0,10"/>
-                        <ListView x:Name="lvInventar" Height="380">
+                        <ListView x:Name="lvInventar" Height="380" ItemsSource="{Binding ColectieBaterii}">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn Header="Nume" Width="150" DisplayMemberBinding="{Binding Nume}"/>
@@ -382,8 +384,9 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="0" Content="Selecteaza bateria:"/>
-                            <ComboBox x:Name="cmbSterge" Grid.Column="1" DisplayMemberPath="Nume"
-                                      SelectionChanged="cmbSterge_SelectionChanged"/>
+                            <ComboBox x:Name="cmbSterge" Grid.Column="1" 
+                                             ItemsSource="{Binding ColectieBaterii}" DisplayMemberPath="Nume"
+                                             SelectionChanged="cmbSterge_SelectionChanged"/>
                         </Grid>
 
                         <Border x:Name="borderDetalii" Visibility="Collapsed"
